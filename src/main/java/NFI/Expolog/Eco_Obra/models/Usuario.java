@@ -1,7 +1,8 @@
 package NFI.Expolog.Eco_Obra.models;
 
 import NFI.Expolog.Eco_Obra.exceptions.NullObjectException;
-import NFI.Expolog.Eco_Obra.models.associations.VendaCompra;
+import NFI.Expolog.Eco_Obra.models.associations.Compra;
+import NFI.Expolog.Eco_Obra.models.associations.Venda;
 import NFI.Expolog.Eco_Obra.models.dtos.RegistroUsuarioDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -23,22 +24,22 @@ public class Usuario {
     private Long id;
     @Column(name = "name",nullable = false)
     private String nome;
-    @Column(name = "email",nullable = false)
+    @Column(name = "email",nullable = false, unique = true)
     private String email;
     @Getter(AccessLevel.NONE)
     @Column(name = "senha",nullable = false)
     private String senha;
-    @Column(name = "telefone")
+    @Column(name = "telefone", unique = true)
     private String telefone;
     @OneToOne(mappedBy = "usuario",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonManagedReference
     private Endereco endereco;
     @OneToMany(mappedBy = "vendedor",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<VendaCompra> vendas;
+    private List<Venda> vendas;
     @OneToMany(mappedBy = "comprador",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<VendaCompra> compras;
+    private List<Compra> compras;
 
     public Usuario(String nome, String email, String senha, String telefone, Endereco endereco) {
         this.vendas = new ArrayList<>();
@@ -61,17 +62,17 @@ public class Usuario {
         this.endereco.setUsuario(this);
     }
 
-    public void addVendas(VendaCompra vendaCompra){
-        if(vendaCompra == null){
+    public void addVendas(Venda venda){
+        if(venda == null){
             throw new NullObjectException("The object of " + this.getClass() + " is null");
         }
-        this.vendas.add(vendaCompra);
+        this.vendas.add(venda);
     }
 
-    public void addCompras(VendaCompra vendaCompra){
-        if(vendaCompra == null){
+    public void addCompras(Compra compra){
+        if(compra == null){
             throw new NullObjectException("The object of " + this.getClass() + " is null");
         }
-        this.compras.add(vendaCompra);
+        this.compras.add(compra);
     }
 }

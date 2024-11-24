@@ -12,17 +12,14 @@ import lombok.NoArgsConstructor;
 @Table(name = "vendas")
 @Getter
 @NoArgsConstructor
-public class VendaCompra {
+public class Venda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonBackReference
     private Usuario vendedor;
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JsonBackReference
-    private Usuario comprador;
     @OneToOne(mappedBy = "venda",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonBackReference
     private Material material;
@@ -31,6 +28,11 @@ public class VendaCompra {
     private EstadoVenda estadoVenda;
     @Column(name = "quantidade_produto")
     private Integer quantidade;
-    @Column(name = "preco_compra")
-    private Double precoCompra;
+
+    public Venda(Usuario vendedor, Material material, Integer quantidade) {
+        this.vendedor = vendedor;
+        this.material = material;
+        this.quantidade = quantidade;
+        this.estadoVenda = EstadoVenda.EM_ABERTO;
+    }
 }
