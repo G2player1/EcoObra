@@ -1,7 +1,7 @@
 package NFI.Expolog.Eco_Obra.models;
 
 import NFI.Expolog.Eco_Obra.exceptions.NullObjectException;
-import NFI.Expolog.Eco_Obra.models.dtos.RegistroEnderecoDTO;
+import NFI.Expolog.Eco_Obra.models.dtos.registros.RegistroEnderecoDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,7 +30,7 @@ public class Endereco {
     private Integer numero;
     @Column(name = "complemento",length = 2000)
     private String complemento;
-    @OneToOne(mappedBy = "endereco",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonBackReference
     private Usuario usuario;
 

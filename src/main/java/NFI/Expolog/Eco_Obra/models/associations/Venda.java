@@ -17,22 +17,31 @@ public class Venda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JsonBackReference
-    private Usuario vendedor;
-    @OneToOne(mappedBy = "venda",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JsonBackReference
-    private Material material;
+
     @Enumerated
     @Column(name = "estado_venda")
     private EstadoVenda estadoVenda;
+
     @Column(name = "quantidade_produto")
     private Integer quantidade;
+
+    @OneToOne(mappedBy = "venda",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonBackReference
+    private Material material;
+
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonBackReference
+    private Compra compra;
+
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonBackReference
+    private Usuario vendedor;
 
     public Venda(Usuario vendedor, Material material, Integer quantidade) {
         this.vendedor = vendedor;
         this.material = material;
         this.quantidade = quantidade;
         this.estadoVenda = EstadoVenda.EM_ABERTO;
+        this.compra = null;
     }
 }

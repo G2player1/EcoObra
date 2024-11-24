@@ -1,7 +1,9 @@
 package NFI.Expolog.Eco_Obra.models;
 
 import NFI.Expolog.Eco_Obra.enums.TipoMaterial;
-import NFI.Expolog.Eco_Obra.models.dtos.RegistroMaterialDTO;
+import NFI.Expolog.Eco_Obra.exceptions.NullObjectException;
+import NFI.Expolog.Eco_Obra.models.associations.Venda;
+import NFI.Expolog.Eco_Obra.models.dtos.registros.RegistroMaterialDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +31,8 @@ public class Material {
     private TipoMaterial tipoMaterial;
     @OneToMany(mappedBy = "fotoMaterial",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<FotoMaterial> fotosMaterial;
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private Venda venda;
 
     public Material(String nome, Double preco, Double precoRecomendado, TipoMaterial tipoMaterial) {
         this.fotosMaterial = new ArrayList<>();
@@ -47,6 +51,13 @@ public class Material {
                 .stream()
                 .map(s -> new FotoMaterial(s,this))
                 .toList();
+    }
+
+    public void setVenda(Venda venda){
+        if(venda == null){
+            throw new NullObjectException("The object of " + this.getClass() + " is null");
+        }
+        this.venda = venda;
     }
 
 }

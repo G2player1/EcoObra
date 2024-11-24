@@ -1,4 +1,4 @@
-package NFI.Expolog.Eco_Obra.models.dtos;
+package NFI.Expolog.Eco_Obra.models.dtos.registros;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

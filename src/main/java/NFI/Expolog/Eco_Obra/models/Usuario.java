@@ -3,7 +3,7 @@ package NFI.Expolog.Eco_Obra.models;
 import NFI.Expolog.Eco_Obra.exceptions.NullObjectException;
 import NFI.Expolog.Eco_Obra.models.associations.Compra;
 import NFI.Expolog.Eco_Obra.models.associations.Venda;
-import NFI.Expolog.Eco_Obra.models.dtos.RegistroUsuarioDTO;
+import NFI.Expolog.Eco_Obra.models.dtos.registros.RegistroUsuarioDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -31,7 +31,7 @@ public class Usuario {
     private String senha;
     @Column(name = "telefone", unique = true)
     private String telefone;
-    @OneToOne(mappedBy = "usuario",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonManagedReference
     private Endereco endereco;
     @OneToMany(mappedBy = "vendedor",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
