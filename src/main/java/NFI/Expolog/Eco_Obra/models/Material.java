@@ -3,6 +3,7 @@ package NFI.Expolog.Eco_Obra.models;
 import NFI.Expolog.Eco_Obra.enums.TipoMaterial;
 import NFI.Expolog.Eco_Obra.exceptions.NullObjectException;
 import NFI.Expolog.Eco_Obra.models.associations.Venda;
+import NFI.Expolog.Eco_Obra.models.dtos.edicoes.EditaMaterialDTO;
 import NFI.Expolog.Eco_Obra.models.dtos.registros.RegistroMaterialDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -63,4 +64,15 @@ public class Material {
         this.venda = venda;
     }
 
+    public void updateData(EditaMaterialDTO material) {
+        if(material.nome() != null){
+            this.nome = material.nome();
+        }
+        if(material.preco() != null){
+            this.preco = material.preco();
+        }
+        if(material.tipoMaterial() != null) {
+            this.tipoMaterial = TipoMaterial.fromString(material.tipoMaterial());
+        }
+    }
 }

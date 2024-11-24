@@ -3,6 +3,7 @@ package NFI.Expolog.Eco_Obra.controllers;
 import NFI.Expolog.Eco_Obra.exceptions.CantRegisterBuyException;
 import NFI.Expolog.Eco_Obra.models.dtos.buscas.BuscaCompraDTO;
 import NFI.Expolog.Eco_Obra.models.dtos.buscas.BuscaVendaDTO;
+import NFI.Expolog.Eco_Obra.models.dtos.edicoes.EditaVendaDTO;
 import NFI.Expolog.Eco_Obra.models.dtos.registros.RegistroCompraDTO;
 import NFI.Expolog.Eco_Obra.models.dtos.registros.RegistroUsuarioDTO;
 import NFI.Expolog.Eco_Obra.models.dtos.registros.RegistroVendaDTO;
@@ -51,5 +52,10 @@ public class UsuarioController {
     @GetMapping("/{id}/compras")
     public List<BuscaCompraDTO> buscaComprasUsuario(@PathVariable("id") Long id){
         return usuarioService.buscaComprasUsuario(id);
+    }
+
+    @PutMapping("/editar_venda")
+    public void editaVendaUsuario(@RequestBody EditaVendaDTO editaVendaDTO){
+        usuarioService.editaVendaUsuario(editaVendaDTO);
     }
 }

@@ -4,6 +4,7 @@ import NFI.Expolog.Eco_Obra.enums.EstadoVenda;
 import NFI.Expolog.Eco_Obra.exceptions.NullObjectException;
 import NFI.Expolog.Eco_Obra.models.Material;
 import NFI.Expolog.Eco_Obra.models.Usuario;
+import NFI.Expolog.Eco_Obra.models.dtos.edicoes.EditaVendaDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -68,5 +69,14 @@ public class Venda {
 
     public void subtraiQuantidade(Integer quantidade){
         this.quantidade -= quantidade;
+    }
+
+    public void updateData(EditaVendaDTO editaVendaDTO) {
+        if(editaVendaDTO.material() != null){
+            this.material.updateData(editaVendaDTO.material());
+        }
+        if(editaVendaDTO.quantidade() != null){
+            this.quantidade = editaVendaDTO.quantidade();
+        }
     }
 }

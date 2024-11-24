@@ -10,6 +10,7 @@ import NFI.Expolog.Eco_Obra.models.associations.Compra;
 import NFI.Expolog.Eco_Obra.models.associations.Venda;
 import NFI.Expolog.Eco_Obra.models.dtos.buscas.BuscaCompraDTO;
 import NFI.Expolog.Eco_Obra.models.dtos.buscas.BuscaVendaDTO;
+import NFI.Expolog.Eco_Obra.models.dtos.edicoes.EditaVendaDTO;
 import NFI.Expolog.Eco_Obra.models.dtos.registros.RegistroCompraDTO;
 import NFI.Expolog.Eco_Obra.models.dtos.registros.RegistroUsuarioDTO;
 import NFI.Expolog.Eco_Obra.models.dtos.registros.RegistroVendaDTO;
@@ -114,11 +115,18 @@ public class UsuarioService {
                 .toList();
     }
 
+    @Transactional
     public List<BuscaCompraDTO> buscaComprasUsuario(Long id) {
         return compraRepository.findAll()
                 .stream()
                 .filter(compra -> compra.getComprador().getId() == id)
                 .map(BuscaCompraDTO::new)
                 .toList();
+    }
+
+    @Transactional
+    public void editaVendaUsuario(EditaVendaDTO editaVendaDTO) {
+        Venda venda = vendaRepository.getReferenceById(editaVendaDTO.id());
+        venda.updateData(editaVendaDTO);
     }
 }
