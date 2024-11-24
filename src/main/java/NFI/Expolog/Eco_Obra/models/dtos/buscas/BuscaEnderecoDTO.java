@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 public class BuscaEnderecoDTO {
 
+    private Long id;
     private String logradouro;
     private String bairro;
     private Integer cep;
@@ -15,6 +16,7 @@ public class BuscaEnderecoDTO {
     private String complemento;
 
     public BuscaEnderecoDTO(Endereco endereco){
+        this.id = endereco.getId();
         this.logradouro = endereco.getLogradouro();
         this.bairro = endereco.getBairro();
         this.cep = endereco.getCep();

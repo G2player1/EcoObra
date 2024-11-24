@@ -6,12 +6,14 @@ import lombok.Getter;
 @Getter
 public class BuscaUsuarioDTO {
 
+    private Long id;
     private String nome;
     private String email;
     private String telefone;
     private BuscaEnderecoDTO endereco;
 
     public BuscaUsuarioDTO(Usuario usuario){
+        this.id = usuario.getId();
         this.nome = usuario.getNome();
         this.email = usuario.getEmail();
         this.telefone = usuario.getTelefone();
