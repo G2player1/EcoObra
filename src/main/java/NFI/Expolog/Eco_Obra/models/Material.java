@@ -4,6 +4,7 @@ import NFI.Expolog.Eco_Obra.enums.TipoMaterial;
 import NFI.Expolog.Eco_Obra.exceptions.NullObjectException;
 import NFI.Expolog.Eco_Obra.models.associations.Venda;
 import NFI.Expolog.Eco_Obra.models.dtos.registros.RegistroMaterialDTO;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,12 +27,14 @@ public class Material {
     private Double preco;
     @Column(name = "preco_recomendado")
     private Double precoRecomendado;
-    @Enumerated
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "tipo_material")
     private TipoMaterial tipoMaterial;
     @OneToMany(mappedBy = "fotoMaterial",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<FotoMaterial> fotosMaterial;
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Venda venda;
 
     public Material(String nome, Double preco, Double precoRecomendado, TipoMaterial tipoMaterial) {

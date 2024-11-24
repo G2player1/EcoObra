@@ -2,7 +2,6 @@ package NFI.Expolog.Eco_Obra.models.associations;
 
 import NFI.Expolog.Eco_Obra.models.Usuario;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +23,7 @@ public class Compra {
     private Double precoCompra;
 
     @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonBackReference
     private Venda venda;
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)

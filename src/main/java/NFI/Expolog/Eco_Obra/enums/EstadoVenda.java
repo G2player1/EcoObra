@@ -21,4 +21,13 @@ public enum EstadoVenda {
         }
         throw new CantGetEnumType("cant return a " + TipoMaterial.class);
     }
+
+    public static String fromEnum(EstadoVenda estadoVenda){
+        for (EstadoVenda ev : EstadoVenda.values()){
+            if (ev == estadoVenda){
+                return ev.estadoVendaEcoObra;
+            }
+        }
+        throw new CantGetEnumType("cant return a String from " + TipoMaterial.class);
+    }
 }
